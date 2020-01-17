@@ -1,11 +1,4 @@
-class TreeNode
-{
- TreeNode left;
- int data;
- TreeNode right;
 
-
-}
 
 
 public class MyBinaryTree {
@@ -30,7 +23,7 @@ public class MyBinaryTree {
            TreeNode parent=root;
            while(temp!=null)
            {     parent=temp;
-               if(temp.data>n.data)
+               if(temp.data>=n.data)
                {
                    temp=temp.left; }
                    else
@@ -40,7 +33,7 @@ public class MyBinaryTree {
 
 
            }
-           if(parent.data>n.data)
+           if(parent.data>=n.data)
            {
                parent.left=n;
 
@@ -87,15 +80,44 @@ void display()
         System.out.print(root.data+" ");
         inorder(root.right);
     }
+  public int size(TreeNode node)
+  {
+      if(node==null)
+      {
+          return 0;
+      }
+      int leftsize=size(node.left);
+      int rightsize=size(node.right);
+      return leftsize+rightsize+1;
+  }
+  public int height(TreeNode node)
+  {
+      if(node==null)
+      {
+          return 0;
+      }
+      int left=height(node.left);
+      int right=height(node.right);
+      return 1+max(left,right);
+  }
+
+    private int max(int left, int right) {
+       if(left>right)
+           return left;
+       return right;
+
+   }
 
     public static void main(String[] args) {
 MyBinaryTree tree=new MyBinaryTree();
 tree.insert(10);
 tree.insert(11);
-tree.insert(12);
+tree.insert(8);
 tree.insert(13);
 tree.insert(14);
 tree.display();
-
+        System.out.println();
+        System.out.println(tree.size(tree.root));
+        System.out.println(tree.height(tree.root));
     }
 }
